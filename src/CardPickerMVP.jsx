@@ -1839,23 +1839,25 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
                 <div className="text-xs text-slate-400">
                   Base: {money(top.baseValue)} · Bonus: {money(top.bonusValue)}
                 </div>
+                {currentView === "strategy" && (
+        <MyStrategy 
+          ownedIds={ownedIds}
+          cardsCatalog={cardsCatalog}
+          boaCcpChoice={boaCcpChoice}
+          citiCustomChoice={citiCustomChoice}
+        />
+      )}
+
+      {currentView === "offers" && (
+        <div className="bg-white/90 backdrop-blur rounded-2xl shadow-lg ring-1 ring-black/5 p-6 text-center">
+          <h2 className="text-2xl font-bold text-slate-900 mb-4">Offers Coming Soon</h2>
+          <p className="text-slate-600">We're working on bringing you the best credit card offers!</p>
+        </div>
+      )}
               </div>
             </div>
           </section>
         )}
-
-{currentView === "strategy" && (
-  <MyStrategy 
-    ownedIds={ownedIds}
-    cardsCatalog={cardsCatalog}
-    boaCcpChoice={boaCcpChoice}
-    citiCustomChoice={citiCustomChoice}
-  />
-)}
-
-{currentView === "offers" && (
-  <div>Offers view coming soon...</div>
-)}
 
         {/* Wallet + Inputs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
