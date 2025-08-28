@@ -974,6 +974,140 @@ const CardComponent = ({ card }) => {
   );
 }
 
+// Add this component to your existing app
+// Uses your existing CATEGORIES, cardsCatalog, ownedIds state
+
+function MyStrategy({ ownedIds, cardsCatalog, boaCcpChoice, citiCustomChoice }) {
+  // Get user's actual cards with any custom category selections applied
+  const ownedCards = useMemo(() => {
+    let cards = cardsCatalog.filter(c => ownedIds.includes(c.id));
+    
+    // Handle BoA CCP custom category
+    if (ownedIds.includes("boa_ccp")) {
+      const choice = BOA_CCP_CHOICES.find(x => x.id === boaCcpChoice) || BOA_CCP_CHOICES[0];
+      cards = cards.map(c => {
+        if (c.id !== "boa_ccp") return c;
+        return {
+          ...c,
+          categories: { ...c.categories, ...choice.inject }
+        };
+      });
+    }
+    
+    // Handle Citi Custom Cash
+    if (ownedIds.includes("citi_custom_cash")) {
+      const choice = CITI_CUSTOM_CASH_CHOICES.find(x => x.id === citiCustomChoice) || CITI_CUSTOM_CASH_CHOICES[0];
+      cards = cards.map(c => {
+        if (c.id !== "citi_custom_cash") return c;
+        return {
+          ...c,
+          categories: { ...choice.inject }
+        };
+      });
+    }
+    
+    return cards;
+  }, [cardsCatalog, ownedIds, boaCcpChoice, citiCustomChoice]);
+
+  // Calculate best card for each category
+  const strategy = useMemo(() => {
+    const result = {};
+    
+    for (const cat of CATEGORIES) {
+      let bestCard = null;
+      let bestValue = 0;
+      
+      for (const card of ownedCards) {
+        const mult = card.categories?.[cat.id] || card.base || 1;
+        const value = card.type === "cashback" ? mult : mult * 1.25;
+        
+        if (value > bestValue) {
+          bestValue = value;
+          bestCard = card;
+        }
+      }
+      
+      if (bestCard && bestValue > 1) {
+        const mult = bestCard.categories?.[cat.id] || bestCard.base || 1;
+        result[cat.id] = {
+          card: bestCard,
+          multiplier: mult,
+          type: bestCard.type
+        };
+      }
+    }
+    
+    return result;
+  }, [ownedCards]);
+
+  if (ownedCards.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">No Cards Added Yet</h2>
+        <p className="text-slate-600 mb-6">Add your credit cards to see your optimal strategy</p>
+        <button className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+          Add Cards
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">My Card Strategy</h1>
+        <p className="text-slate-600">Your optimal card for each spending category</p>
+      </div>
+
+      <div className="grid gap-3">
+        {CATEGORIES.map(category => {
+          const categoryStrategy = strategy[category.id];
+          
+          if (!categoryStrategy) {
+            return (
+              <div key={category.id} className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-slate-900">{category.label}</span>
+                  <span className="text-sm text-slate-500">Use any card (1x)</span>
+                </div>
+              </div>
+            );
+          }
+
+          const { card, multiplier, type } = categoryStrategy;
+          const rewardText = type === "cashback" ? `${multiplier}%` : `${multiplier}x`;
+
+          return (
+            <div key={category.id} className="p-4 bg-white rounded-lg border border-slate-200 hover:border-slate-300 transition-colors">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="font-medium text-slate-900">{category.label}</span>
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <div className="w-2 h-2 rounded bg-blue-500" />
+                    {card.name}
+                  </div>
+                </div>
+                <div className="text-lg font-semibold text-green-600">
+                  {rewardText}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <h3 className="font-semibold text-blue-900 mb-2">💡 Quick Tips</h3>
+        <ul className="text-sm text-blue-800 space-y-1">
+          <li>• This strategy maximizes your rewards based on your current cards</li>
+          <li>• Consider getting cards that fill gaps in your strategy</li>
+          <li>• Check for rotating categories that might beat these rates</li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 /* =============================================================== */
 /*                        ONBOARDING WIZARD                       */
 /* =============================================================== */
@@ -1221,6 +1355,7 @@ const [citiCustomChoice, setCitiCustomChoice] = useLocalStorage("tapthat_citiCus
   const [merchantSearch, setMerchantSearch] = useState("");
   const [showMerchantResults, setShowMerchantResults] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(!hasCompletedOnboarding);
+  const [currentView, setCurrentView] = useState("recommendation");
 
 // --- Offers browser state ---
 const [offerTab, setOfferTab] = useLocalStorage("offerTab", "online");
@@ -1550,30 +1685,55 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             {/* Header */}
-            <div className="p-6 border-b border-slate-200">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold">
-                    {selectedIssuer ? `${selectedIssuer} Cards` : 'Add Cards to Your Wallet'}
-                  </h2>
-                  <p className="text-sm text-slate-600 mt-1">
-                    {selectedIssuer 
-                      ? `Choose from ${selectedIssuer} cards` 
-                      : 'Browse cards by issuer'
-                    }
-                  </p>
-                </div>
-                <button
-                  onClick={() => {
-                    setShowAddCards(false);
-                    setSelectedIssuer(null);
-                  }}
-                  className="text-slate-400 hover:text-slate-600 text-2xl"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
+<header className="bg-white/80 backdrop-blur rounded-2xl shadow-sm ring-1 ring-black/5 p-6 text-center">
+    <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+💳 TapThat</h1>
+    <p className="mt-2 text-sm text-slate-600">
+      Select your cards, merchant (optional), amount — category locks automatically when a merchant is chosen.
+    </p>
+    <button 
+      onClick={() => setShowOnboarding(true)}
+      className="mt-3 text-xs text-blue-600 hover:text-blue-800 underline"
+    >
+      Re-run setup wizard
+    </button>
+    
+    {/* Navigation Tabs */}
+    <div className="flex justify-center mt-4">
+      <div className="inline-flex space-x-1 bg-slate-100 p-1 rounded-lg">
+        <button
+          onClick={() => setCurrentView("recommendation")}
+          className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+            currentView === "recommendation" 
+              ? "bg-white text-blue-600 shadow-sm" 
+              : "text-slate-600 hover:text-slate-800"
+          }`}
+        >
+          Card Picker
+        </button>
+        <button
+          onClick={() => setCurrentView("strategy")}
+          className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+            currentView === "strategy" 
+              ? "bg-white text-blue-600 shadow-sm" 
+              : "text-slate-600 hover:text-slate-800"
+          }`}
+        >
+          My Strategy
+        </button>
+        <button
+          onClick={() => setCurrentView("offers")}
+          className={`px-4 py-2 text-sm font-medium rounded transition-all ${
+            currentView === "offers" 
+              ? "bg-white text-blue-600 shadow-sm" 
+              : "text-slate-600 hover:text-slate-800"
+          }`}
+        >
+          Offers
+        </button>
+      </div>
+    </div>
+</header>
 
             {/* Content */}
             <div className="p-6">
@@ -1656,7 +1816,7 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
         </header>
 
 {/* Recommendation */}
-        {top && (
+        {currentView === "recommendation" && (
           <section className="bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg ring-1 ring-blue-100 p-4 sm:p-5 md:p-6">
             <h2 className="text-lg sm:text-xl font-semibold mb-4">Recommended Card</h2>
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
@@ -1683,6 +1843,19 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
             </div>
           </section>
         )}
+
+{currentView === "strategy" && (
+  <MyStrategy 
+    ownedIds={ownedIds}
+    cardsCatalog={cardsCatalog}
+    boaCcpChoice={boaCcpChoice}
+    citiCustomChoice={citiCustomChoice}
+  />
+)}
+
+{currentView === "offers" && (
+  <div>Offers view coming soon...</div>
+)}
 
         {/* Wallet + Inputs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
