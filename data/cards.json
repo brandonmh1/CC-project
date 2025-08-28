@@ -1,0 +1,858 @@
+[
+  {
+    "id": "csp",
+    "name": "Chase Sapphire Preferred",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "UR",
+    "cpp_default": 1.25,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 3 },
+    "notes": [
+      "3x dining worldwide",
+      "2x travel",
+      "Primary rental car insurance",
+      "Trip cancellation & interruption insurance",
+      "Points worth 25% more via Chase Travel"
+    ]
+  },
+  {
+    "id": "csr",
+    "name": "Chase Sapphire Reserve",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "UR",
+    "cpp_default": 1.5,
+    "base": 1,
+    "categories": { "travel": 3, "dining": 3 },
+    "notes": [
+      "3x dining worldwide",
+      "3x travel",
+      "$300 annual travel credit",
+      "Priority Pass lounge access",
+      "Points worth 50% more via Chase Travel"
+    ]
+  },
+  {
+    "id": "cff",
+    "name": "Chase Freedom Flex",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "UR",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "dining": 3, "drugstore": 3 },
+    "notes": [
+      "5% rotating categories ($1,500/quarter; activation required)",
+      "3x dining",
+      "3x drugstores",
+      "1% all other purchases"
+    ],
+    "rotating_rules": [
+      {
+        "start": "2025-07-01",
+        "end": "2025-09-30",
+        "rate": 5,
+        "cap_cents": 150000,
+        "after_rate": 1,
+        "activation_required": true,
+        "category_ids": ["grocery"]
+      },
+      {
+        "start": "2025-10-01",
+        "end": "2025-12-31",
+        "rate": 5,
+        "cap_cents": 150000,
+        "after_rate": 1,
+        "activation_required": true,
+        "category_ids": ["gas"]
+      }
+    ]
+  },
+  {
+    "id": "cfu",
+    "name": "Chase Freedom Unlimited",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "UR",
+    "cpp_default": 1.0,
+    "base": 1.5,
+    "categories": { "dining": 3, "drugstore": 3 },
+    "notes": [
+      "1.5x on all purchases",
+      "3x dining",
+      "3x drugstores",
+      "No category limits"
+    ]
+  },
+  {
+    "id": "amazon_prime_visa",
+    "name": "Amazon Prime Visa",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "UR",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "online": 5, "grocery": 2, "dining": 2, "gas": 2, "drugstore": 2 },
+    "notes": [
+      "5% back on Amazon.com with Prime membership",
+      "2% gas stations, restaurants, drugstores",
+      "2% grocery stores",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "amazon-prime-store",
+    "name": "Amazon Prime Store Card",
+    "type": "cashback",
+    "base": 1,
+    "categories": { "online": 5 },
+    "notes": [
+      "5% back on Amazon.com with Prime membership",
+      "Special financing options available",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "chase_united_explorer",
+    "name": "Chase United Explorer",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "United",
+    "cpp_default": 1.2,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2 },
+    "notes": [
+      "2x United purchases",
+      "2x dining",
+      "Free checked bag",
+      "Priority boarding"
+    ]
+  },
+  {
+    "id": "chase_southwest_priority",
+    "name": "Chase Southwest Priority",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "Southwest",
+    "cpp_default": 1.4,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2 },
+    "notes": [
+      "2x Southwest purchases",
+      "2x dining",
+      "$75 annual Southwest travel credit",
+      "4 upgraded boardings per year"
+    ]
+  },
+  {
+    "id": "chase_marriott_boundless",
+    "name": "Chase Marriott Boundless",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "Marriott",
+    "cpp_default": 0.8,
+    "base": 1,
+    "categories": { "travel": 2, "grocery": 2, "gas": 2, "dining": 2 },
+    "notes": [
+      "6x Marriott Bonvoy participating hotels",
+      "2x travel, grocery, gas, dining",
+      "Free night certificate annually",
+      "Silver elite status"
+    ]
+  },
+  {
+    "id": "chase_marriott_bold",
+    "name": "Chase Marriott Bold",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "Marriott",
+    "cpp_default": 0.8,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2 },
+    "notes": [
+      "3x Marriott Bonvoy participating hotels",
+      "2x travel and dining",
+      "No annual fee version"
+    ]
+  },
+  {
+    "id": "chase_ihg_premier",
+    "name": "Chase IHG Premier",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "IHG",
+    "cpp_default": 0.5,
+    "base": 1,
+    "categories": { "travel": 2, "gas": 2, "grocery": 2, "dining": 2 },
+    "notes": [
+      "25x IHG Hotels & Resorts",
+      "2x travel, gas, grocery, dining",
+      "Free night certificate annually",
+      "Platinum elite status"
+    ]
+  },
+  {
+    "id": "chase_hyatt",
+    "name": "Chase World of Hyatt",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "Hyatt",
+    "cpp_default": 1.8,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2, "entertainment": 2, "internet": 2 },
+    "notes": [
+      "4x Hyatt hotels",
+      "2x travel, dining, fitness clubs, gym memberships",
+      "Free night certificate annually",
+      "Discoverist status"
+    ]
+  },
+  {
+    "id": "chase_british_airways",
+    "name": "Chase British Airways",
+    "issuer": "Chase",
+    "type": "points",
+    "program": "Avios",
+    "cpp_default": 1.4,
+    "base": 1,
+    "categories": { "travel": 3, "dining": 2, "grocery": 2, "gas": 2 },
+    "notes": [
+      "3x British Airways purchases",
+      "2x dining, grocery stores, gas stations",
+      "Avios transfer to partners"
+    ]
+  },
+  {
+    "id": "amex_plat",
+    "name": "Amex Platinum",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "MR",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "travel": 5, "hotel_amextravel": 5 },
+    "notes": [
+      "5x airfare booked direct or AmexTravel",
+      "5x prepaid hotel via AmexTravel",
+      "Global Lounge Collection access",
+      "Hilton & Marriott Gold Status",
+      "$200 airline incidental credit (enrollment required)",
+      "CLEAR Plus or TSA PreCheck/Global Entry credit"
+    ]
+  },
+  {
+    "id": "amex_gold",
+    "name": "Amex Gold",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "MR",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "dining": 4, "grocery": 4 },
+    "notes": [
+      "4x dining worldwide",
+      "4x U.S. supermarkets (up to $25k/year)",
+      "$10 monthly dining credit (Grubhub, Cheesecake Factory, etc.)",
+      "$10 monthly Uber Cash with enrollment"
+    ]
+  },
+  {
+    "id": "amex_everyday",
+    "name": "American Express EveryDay",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "MR",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "grocery": 2, "gas": 2 },
+    "notes": [
+      "2x grocery stores",
+      "2x gas stations",
+      "Bonus multiplier with 20+ transactions per month"
+    ]
+  },
+  {
+    "id": "amex_bcp",
+    "name": "American Express Blue Cash Preferred",
+    "issuer": "Amex",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "grocery": 6, "entertainment": 6, "transit": 3, "gas": 3 },
+    "notes": [
+      "6% cash back at U.S. supermarkets (up to $6k/year)",
+      "6% cash back on select streaming services",
+      "3% cash back on transit & gas stations",
+      "$95 annual fee"
+    ]
+  },
+  {
+    "id": "amex_bce",
+    "name": "American Express Blue Cash Everyday",
+    "issuer": "Amex",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "grocery": 3, "gas": 2, "online": 2 },
+    "notes": [
+      "3% cash back at U.S. supermarkets (up to $6k/year)",
+      "2% cash back at gas stations and select department stores",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "amex_bread",
+    "name": "Amex Bread Cashback",
+    "issuer": "Amex",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": ["Flat 2% unlimited cash back", "No annual fee"]
+  },
+  {
+    "id": "schwab_investor",
+    "name": "Schwab Investor Card",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "MR",
+    "cpp_default": 1.1,
+    "base": 1,
+    "categories": {},
+    "notes": [
+      "1x Membership Rewards on all purchases",
+      "1.1¢ per point when redeemed to Schwab account",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "amex_delta_gold",
+    "name": "American Express Delta Gold",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "Delta",
+    "cpp_default": 1.2,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2, "grocery": 2 },
+    "notes": [
+      "2x Delta purchases",
+      "2x dining and U.S. supermarkets",
+      "Free checked bag",
+      "$100 Delta purchase credit annually"
+    ]
+  },
+  {
+    "id": "amex_delta_platinum",
+    "name": "American Express Delta Platinum",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "Delta",
+    "cpp_default": 1.2,
+    "base": 1,
+    "categories": { "travel": 3, "dining": 2, "grocery": 2 },
+    "notes": [
+      "3x Delta purchases",
+      "2x dining and U.S. supermarkets",
+      "Companion certificate annually",
+      "Priority boarding and free checked bags"
+    ]
+  },
+  {
+    "id": "amex_hilton_honors",
+    "name": "American Express Hilton Honors",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "Hilton",
+    "cpp_default": 0.5,
+    "base": 1,
+    "categories": { "travel": 5, "dining": 5, "grocery": 3, "gas": 3 },
+    "notes": [
+      "7x Hilton hotels",
+      "5x travel and dining",
+      "3x grocery and gas",
+      "Silver elite status"
+    ]
+  },
+  {
+    "id": "amex_hilton_surpass",
+    "name": "American Express Hilton Surpass",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "Hilton",
+    "cpp_default": 0.5,
+    "base": 1,
+    "categories": { "travel": 6, "dining": 6, "grocery": 3, "gas": 3 },
+    "notes": [
+      "12x Hilton hotels",
+      "6x travel and dining",
+      "3x grocery and gas",
+      "Gold elite status",
+      "Free night certificate annually"
+    ]
+  },
+  {
+    "id": "amex_hilton_aspire",
+    "name": "American Express Hilton Aspire",
+    "issuer": "Amex",
+    "type": "points",
+    "program": "Hilton",
+    "cpp_default": 0.5,
+    "base": 1,
+    "categories": { "travel": 7, "dining": 7, "grocery": 3, "gas": 3 },
+    "notes": [
+      "14x Hilton hotels",
+      "7x travel and dining",
+      "3x grocery and gas",
+      "Diamond elite status",
+      "$250 resort credit",
+      "Priority Pass"
+    ]
+  },
+  {
+    "id": "double_cash",
+    "name": "Citi Double Cash",
+    "issuer": "Citi",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": ["2% cash back (1% when you buy, 1% when you pay)"]
+  },
+  {
+    "id": "citi_custom_cash",
+    "name": "Citi Custom Cash",
+    "issuer": "Citi",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "grocery": 5, "gas": 5, "dining": 5, "travel": 5, "transit": 5, "drugstore": 5, "home_improve": 5, "entertainment": 5 },
+    "notes": [
+      "5% cash back on top eligible spend category each billing cycle",
+      "Up to $500 in purchases per billing cycle",
+      "1% on all other purchases"
+    ]
+  },
+  {
+    "id": "citi_rewards_plus",
+    "name": "Citi Rewards+",
+    "issuer": "Citi",
+    "type": "points",
+    "program": "TYP",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "grocery": 2, "gas": 2 },
+    "notes": [
+      "2x grocery stores and gas stations",
+      "Rounds up to nearest 10 points on every purchase",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "citi-advantage-plat-select",
+    "name": "Citi AAdvantage Platinum Select",
+    "issuer": "Citi",
+    "type": "points",
+    "program": "AA",
+    "cpp_default": 1.2,
+    "base": 1,
+    "categories": { "dining": 2, "gas": 2, "travel": 2 },
+    "notes": [
+      "2x dining & gas stations",
+      "2x American Airlines purchases",
+      "Free checked bag for you + 4 companions",
+      "Preferred boarding",
+      "25% off in-flight food & beverage",
+      "$125 flight discount after $20k spend"
+    ]
+  },
+  {
+    "id": "citi_aadvantage_exec",
+    "name": "Citi AAdvantage Executive",
+    "issuer": "Citi",
+    "type": "points",
+    "program": "AA",
+    "cpp_default": 1.2,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2 },
+    "notes": [
+      "2x American Airlines purchases",
+      "2x dining",
+      "Admirals Club access",
+      "$100 Global Entry credit",
+      "Free checked bags"
+    ]
+  },
+  {
+    "id": "discover_it",
+    "name": "Discover it",
+    "issuer": "Discover",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": {},
+    "notes": [
+      "5% rotating categories ($1,500/quarter; activation required)",
+      "1% all other purchases",
+      "Cashback Match doubles rewards in year 1"
+    ],
+    "rotating_rules": [
+      {
+        "start": "2025-01-01",
+        "end": "2025-03-31",
+        "rate": 5,
+        "cap_cents": 150000,
+        "after_rate": 1,
+        "activation_required": true,
+        "category_ids": ["dining", "home_improve", "entertainment"]
+      },
+      {
+        "start": "2025-04-01",
+        "end": "2025-06-30",
+        "rate": 5,
+        "cap_cents": 150000,
+        "after_rate": 1,
+        "activation_required": true,
+        "category_ids": ["grocery"]
+      },
+      {
+        "start": "2025-07-01",
+        "end": "2025-09-30",
+        "rate": 5,
+        "cap_cents": 150000,
+        "after_rate": 1,
+        "activation_required": true,
+        "category_ids": ["gas", "transit"]
+      }
+    ]
+  },
+  {
+    "id": "discover_it_miles",
+    "name": "Discover it Miles",
+    "issuer": "Discover",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1.5,
+    "categories": {},
+    "notes": [
+      "1.5x on all purchases",
+      "Miles double first year",
+      "No foreign transaction fees"
+    ]
+  },
+  {
+    "id": "cap1_venturex",
+    "name": "Capital One Venture X",
+    "issuer": "Capital One",
+    "type": "points",
+    "program": "Cap1",
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": { "hotel_portal": 10, "car_portal": 10, "air_portal": 5 },
+    "notes": [
+      "2x on all purchases",
+      "10x hotels & rental cars via Capital One Travel",
+      "5x flights via Capital One Travel",
+      "$300 annual Capital One Travel credit",
+      "10k bonus miles each card anniversary",
+      "Priority Pass & Capital One Lounge access",
+      "Primary rental car insurance"
+    ]
+  },
+  {
+    "id": "capital_one_venture",
+    "name": "Capital One Venture",
+    "issuer": "Capital One",
+    "type": "points",
+    "program": "Cap1",
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": [
+      "2x on all purchases",
+      "No category limits",
+      "Transfer partners available"
+    ]
+  },
+  {
+    "id": "capital_one_savor",
+    "name": "Capital One Savor",
+    "issuer": "Capital One",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "dining": 4, "entertainment": 4, "grocery": 3 },
+    "notes": [
+      "4% on dining and entertainment",
+      "3% on grocery stores",
+      "No category limits"
+    ]
+  },
+  {
+    "id": "capital_one_savorone",
+    "name": "Capital One SavorOne",
+    "issuer": "Capital One",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "dining": 3, "entertainment": 3, "grocery": 3 },
+    "notes": [
+      "3% on dining, entertainment, grocery stores",
+      "No category limits",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "capital_one_quicksilver",
+    "name": "Capital One Quicksilver",
+    "issuer": "Capital One",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1.5,
+    "categories": {},
+    "notes": [
+      "1.5% on all purchases",
+      "No category limits"
+    ]
+  },
+  {
+    "id": "boa_ccp",
+    "name": "BofA Customized Cash Rewards",
+    "issuer": "Bank of America",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "chosen": 3 },
+    "notes": [
+      "3% back in your chosen category",
+      "2% back at grocery stores & wholesale clubs",
+      "5.25% with Platinum Honors multiplier",
+      "Up to $2,500/quarter in combined choice + grocery/wholesale"
+    ]
+  },
+  {
+    "id": "boa_ucr",
+    "name": "BofA Unlimited Cash Rewards",
+    "issuer": "Bank of America",
+    "type": "cashback",
+    "program": "BoA",
+    "cpp_default": 1.0,
+    "base": 1.5,
+    "categories": {},
+    "notes": [
+      "1.5% unlimited cash back",
+      "Boost to 2.62% with Platinum Honors",
+      "No annual fee"
+    ]
+  },
+  {
+    "id": "boa_premium_rewards",
+    "name": "Bank of America Premium Rewards",
+    "issuer": "Bank of America",
+    "type": "points",
+    "program": "BoA",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "travel": 2, "dining": 2 },
+    "notes": [
+      "2x travel and dining",
+      "$100 annual travel credit"
+    ]
+  },
+  {
+    "id": "boa_alaska",
+    "name": "Bank of America Alaska Airlines",
+    "issuer": "Bank of America",
+    "type": "points",
+    "program": "Alaska",
+    "cpp_default": 1.8,
+    "base": 1,
+    "categories": { "travel": 3, "gas": 2, "grocery": 2, "dining": 2 },
+    "notes": [
+      "3x Alaska Airlines purchases",
+      "2x gas, grocery, dining",
+      "Companion fare annually",
+      "Free checked bag"
+    ]
+  },
+  {
+    "id": "wells_active",
+    "name": "Wells Fargo Active Cash",
+    "issuer": "Wells Fargo",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": ["2% flat unlimited cash rewards", "Cell phone protection if bill paid with card"]
+  },
+  {
+    "id": "wells_fargo_propel",
+    "name": "Wells Fargo Propel",
+    "issuer": "Wells Fargo",
+    "type": "points",
+    "program": "Wells",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "dining": 3, "travel": 3, "gas": 3, "transit": 3, "entertainment": 3 },
+    "notes": [
+      "3x dining, travel, gas stations, transit, streaming services",
+      "No foreign transaction fees"
+    ]
+  },
+  {
+    "id": "usbank_cash_plus",
+    "name": "U.S. Bank Cash+",
+    "issuer": "U.S. Bank",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "drugstore": 5, "home_improve": 5, "entertainment": 5 },
+    "notes": [
+      "Choose two 5% categories",
+      "$2,000 quarterly cap per category",
+      "Categories: TV/internet/streaming, home utilities, drugstores, home improvement stores, department stores"
+    ]
+  },
+  {
+    "id": "usbank_altitude_reserve",
+    "name": "U.S. Bank Altitude Reserve",
+    "issuer": "U.S. Bank",
+    "type": "points",
+    "program": "USB",
+    "cpp_default": 1.5,
+    "base": 1,
+    "categories": { "travel": 3 },
+    "notes": [
+      "3x travel",
+      "$325 annual travel credit",
+      "Real-time rewards redemption at 1.5¢ per point"
+    ]
+  },
+  {
+    "id": "usbank_shopper_cash",
+    "name": "U.S. Bank Shopper Cash Rewards",
+    "issuer": "U.S. Bank",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "online": 3, "grocery": 2, "gas": 2, "dining": 2, "entertainment": 2 },
+    "notes": [
+      "3% on online shopping",
+      "2% grocery, gas, streaming, dining",
+      "Fee waived first year"
+    ]
+  },
+  {
+    "id": "pnc_cash_unlimited",
+    "name": "PNC Cash Unlimited",
+    "issuer": "PNC Bank",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": [
+      "2% cash back on all purchases",
+      "No category limits"
+    ]
+  },
+  {
+    "id": "fidelity_rewards",
+    "name": "Fidelity Rewards Visa",
+    "issuer": "Fidelity",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": [
+      "2% cash back on all purchases",
+      "Deposits directly to Fidelity account"
+    ]
+  },
+  {
+    "id": "sofi_credit_card",
+    "name": "SoFi Credit Card",
+    "issuer": "SoFi",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 2,
+    "categories": {},
+    "notes": [
+      "2% cash back on all purchases",
+      "No category limits"
+    ]
+  },
+  {
+    "id": "apple_card",
+    "name": "Apple Card",
+    "issuer": "Goldman Sachs",
+    "type": "cashback",
+    "program": null,
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "online": 3 },
+    "notes": [
+      "3% at Apple and select partners",
+      "2% Apple Pay purchases",
+      "Daily cash back"
+    ]
+  },
+  {
+    "id": "barclays_aa_red",
+    "name": "AAdvantage Aviator Red World Elite",
+    "issuer": "Barclays",
+    "type": "points",
+    "program": "AA",
+    "cpp_default": 1.2,
+    "base": 1,
+    "categories": { "travel": 2 },
+    "notes": [
+      "2x American Airlines purchases",
+      "Free checked bag for you + 4 companions",
+      "Preferred boarding on AA flights",
+      "25% off in-flight food & beverage"
+    ]
+  },
+  {
+    "id": "barclays_hawaiian",
+    "name": "Barclays Hawaiian Airlines",
+    "issuer": "Barclays",
+    "type": "points",
+    "program": "Hawaiian",
+    "cpp_default": 1.0,
+    "base": 1,
+    "categories": { "travel": 3, "dining": 2, "grocery": 2, "gas": 2 },
+    "notes": [
+      "3x Hawaiian Airlines purchases",
+      "2x dining, grocery, gas",
+      "Companion discount",
+      "Free checked bag"
+    ]
+  },
+  {
+    "id": "barclays_wyndham",
+    "name": "Barclays Wyndham Earner+",
+    "issuer": "Barclays",
+    "type": "points",
+    "program": "Wyndham",
+    "cpp_default": 0.6,
+    "base": 1,
+    "categories": { "travel": 4, "gas": 3, "grocery": 2, "dining": 2 }
+  }
+]

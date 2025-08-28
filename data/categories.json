@@ -1,0 +1,19 @@
+{
+  "grocery": {"label":"Groceries","mcc":[5411]},
+  "dining": {"label":"Dining","mcc":[5812,5814]},
+  "gas": {"label":"Gas","mcc":[5541,5542]},
+  "transit": {"label":"Transit/Rideshare","mcc":[4111,4121,4789]},
+  "drugstore": {"label":"Drugstore","mcc":[5912]},
+  "travel": {"label":"Travel (general)","mcc":[3000,3299,3351,3501,3999]},
+  "hotel_amextravel": {"label":"Hotel via AmexTravel","mcc":[]},
+  "travel_portal": {"label":"Travel via Chase Travel","mcc":[]},
+  "hotel_portal": {"label":"Hotel via Cap1 portal","mcc":[]},
+  "car_portal": {"label":"Car via Cap1 portal","mcc":[]},
+  "air_portal": {"label":"Air via Cap1 portal","mcc":[]},
+  "online": {"label":"Online Retail","mcc":[]},
+  "home_improve": {"label":"Home Improvement","mcc":[5200,5211]},
+  "entertainment": {"label":"Entertainment","mcc":[7922,7996,7832]},
+  "office": {"label":"Office Supply","mcc":[5111,5943]},
+  "internet": {"label":"Internet/Phone/TV","mcc":[]},
+  "other": {"label":"Everything Else","mcc":[]}
+}
