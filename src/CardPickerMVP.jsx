@@ -1697,8 +1697,9 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
     >
       Re-run setup wizard
     </button>
-    
-    {/* Navigation Tabs */}
+</header>
+
+{/* Navigation Tabs */}
     <div className="flex justify-center mt-4">
       <div className="inline-flex space-x-1 bg-slate-100 p-1 rounded-lg">
         <button
@@ -1733,7 +1734,6 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
         </button>
       </div>
     </div>
-</header>
 
             {/* Content */}
             <div className="p-6">
