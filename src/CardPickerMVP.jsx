@@ -237,23 +237,23 @@ const CARD_VISUALS = {
     textColor: "#ffffff"
   },
   "cff": {
-    gradient: "linear-gradient(135deg, #065f46 0%, #059669 50%, #10b981 100%)",
-    accent: "#ffffff",
-    pattern: "freedom",
-    textColor: "#ffffff"
-  },
+  gradient: "linear-gradient(135deg, #0f4c75 0%, #13a4dd 50%, #5bc0de 100%)",
+  accent: "#ffffff", 
+  pattern: "freedom",
+  textColor: "#ffffff"
+},
   "cfu": {
-    gradient: "linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%)",
-    accent: "#ffffff",
-    pattern: "unlimited",
-    textColor: "#ffffff"
-  },
+  gradient: "linear-gradient(135deg, #1f528e 0%, #151933 100%)",
+  accent: "#ffffff",
+  pattern: "freedom", 
+  textColor: "#ffffff"
+},
   "amazon_prime_visa": {
-    gradient: "linear-gradient(135deg, #232f3e 0%, #37475a 50%, #566573 100%)",
-    accent: "#ff9900",
-    pattern: "amazon",
-    textColor: "#ffffff"
-  },
+  gradient: "linear-gradient(135deg, #0a1a2d 0%, #0f223d 50%, #1a3456 100%)",
+  accent: "#199efe",
+  pattern: "amazon",
+  textColor: "#ffffff"
+},
   "amazon-prime-store": {
     gradient: "linear-gradient(135deg, #232f3e 0%, #37475a 50%, #566573 100%)",
     accent: "#ff9900",
@@ -261,17 +261,17 @@ const CARD_VISUALS = {
     textColor: "#ffffff"
   },
   "chase_united_explorer": {
-    gradient: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%)",
-    accent: "#ffffff",
-    pattern: "airline",
-    textColor: "#ffffff"
-  },
+  gradient: "linear-gradient(270deg, #15253e 0%, #0d3a7c 100%)",
+  accent: "#ffffff",
+  pattern: "airline",
+  textColor: "#ffffff"
+},
   "chase_southwest_priority": {
-    gradient: "linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%)",
-    accent: "#fbbf24",
-    pattern: "airline",
-    textColor: "#ffffff"
-  },
+  gradient: "linear-gradient(135deg, #1a2452 0%, #273a6d 50%, #3b4f8a 100%)",
+  accent: "#ffffff",
+  pattern: "southwest",
+  textColor: "#ffffff"
+},
   "chase_marriott_boundless": {
     gradient: "linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #ef4444 100%)",
     accent: "#fbbf24",
@@ -562,8 +562,8 @@ unlimited: (accent) => (
     </div>
   ),
   amazon: (accent) => (
-    <div className="absolute inset-0 opacity-40">
-      <div className="absolute bottom-4 right-4 text-xs font-bold" style={{color: accent}}>a</div>
+    <div className="absolute inset-0">
+      <div className="absolute bottom-6 right-2 text-xs font-bold opacity-90" style={{color: accent}}>prime</div>
     </div>
   ),
   airline: (accent) => (
@@ -572,6 +572,12 @@ unlimited: (accent) => (
       <div className="absolute bottom-4 left-4 w-3 h-3 rounded-full border" style={{borderColor: accent}}></div>
     </div>
   ),
+  southwest: (accent) => (
+  <div className="absolute inset-0 opacity-80">
+    <div className="absolute top-4 right-4 text-3xl font-bold" style={{color: '#c0c0c0'}}>♥</div>
+    <div className="absolute bottom-4 left-4 w-3 h-3 rounded-full border" style={{borderColor: accent}}></div>
+  </div>
+),
   hotel: (accent) => (
     <div className="absolute inset-0 opacity-25">
       <div className="absolute top-4 left-4 w-2 h-6 border-l-2 border-t-2 border-r-2" style={{borderColor: accent}}></div>
@@ -1685,55 +1691,30 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             {/* Header */}
-<header className="bg-white/80 backdrop-blur rounded-2xl shadow-sm ring-1 ring-black/5 p-6 text-center">
-    <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-💳 TapThat</h1>
-    <p className="mt-2 text-sm text-slate-600">
-      Select your cards, merchant (optional), amount — category locks automatically when a merchant is chosen.
-    </p>
-    <button 
-      onClick={() => setShowOnboarding(true)}
-      className="mt-3 text-xs text-blue-600 hover:text-blue-800 underline"
-    >
-      Re-run setup wizard
-    </button>
-</header>
-
-{/* Navigation Tabs */}
-    <div className="flex justify-center mt-4">
-      <div className="inline-flex space-x-1 bg-slate-100 p-1 rounded-lg">
-        <button
-          onClick={() => setCurrentView("recommendation")}
-          className={`px-4 py-2 text-sm font-medium rounded transition-all ${
-            currentView === "recommendation" 
-              ? "bg-white text-blue-600 shadow-sm" 
-              : "text-slate-600 hover:text-slate-800"
-          }`}
-        >
-          Card Picker
-        </button>
-        <button
-          onClick={() => setCurrentView("strategy")}
-          className={`px-4 py-2 text-sm font-medium rounded transition-all ${
-            currentView === "strategy" 
-              ? "bg-white text-blue-600 shadow-sm" 
-              : "text-slate-600 hover:text-slate-800"
-          }`}
-        >
-          My Strategy
-        </button>
-        <button
-          onClick={() => setCurrentView("offers")}
-          className={`px-4 py-2 text-sm font-medium rounded transition-all ${
-            currentView === "offers" 
-              ? "bg-white text-blue-600 shadow-sm" 
-              : "text-slate-600 hover:text-slate-800"
-          }`}
-        >
-          Offers
-        </button>
-      </div>
-    </div>
+            <div className="p-6 border-b border-slate-200">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold">
+                    {selectedIssuer ? `${selectedIssuer} Cards` : 'Add Cards to Your Wallet'}
+                  </h2>
+                  <p className="text-sm text-slate-600 mt-1">
+                    {selectedIssuer 
+                      ? `Choose from ${selectedIssuer} cards` 
+                      : 'Browse cards by issuer'
+                    }
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowAddCards(false);
+                    setSelectedIssuer(null);
+                  }}
+                  className="text-slate-400 hover:text-slate-600 text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
 
             {/* Content */}
             <div className="p-6">
