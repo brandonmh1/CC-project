@@ -5,4 +5,4 @@ export default function App() {
   return <CardPickerMVP />;
 }
 
-import './app.css';
+import './App.css';

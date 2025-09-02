@@ -1796,6 +1796,225 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
           </button>
         </header>
 
+        {/* Purchase */}
+        <section className="bg-white/90 backdrop-blur rounded-2xl shadow-lg ring-1 ring-black/5 p-4 sm:p-5 md:p-6 space-y-4">
+          <h2 className="text-lg sm:text-xl font-semibold mb-2">Purchase</h2>
+
+          {/* Smart Merchant Search */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Merchant (optional)</label>
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full rounded-xl border border-slate-300 h-11 px-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                placeholder="Search merchants... (try 'coffee', 'clothes', 'burger')"
+                value={merchantSearch}
+                onChange={(e) => {
+                  setMerchantSearch(e.target.value);
+                  setShowMerchantResults(true);
+                  if (!e.target.value) {
+                    setMerchantId("");
+                  }
+                }}
+                onFocus={() => setShowMerchantResults(true)}
+              />
+              
+              {/* Search Results Dropdown */}
+              {showMerchantResults && merchantSearch && (
+                <div className="absolute z-10 w-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg max-h-64 overflow-y-auto">
+                  {searchResults.length > 0 ? (
+                    searchResults.map((merchant) => (
+                      <button
+                        key={merchant.id || "none"}
+                        className="w-full text-left px-3 py-2 hover:bg-slate-50 border-b last:border-0 focus:outline-none focus:bg-blue-50"
+                        onClick={() => selectMerchant(merchant)}
+                      >
+                        <div className="font-medium">{merchant.label}</div>
+                        {merchant.matchReason && (
+                          <div className="text-xs text-slate-500">{merchant.matchReason}</div>
+                        )}
+                        {merchant.category && (
+                          <div className="text-xs text-blue-600">
+                            �+' {CATEGORIES.find(c => c.id === merchant.category)?.label || merchant.category}
+                          </div>
+                        )}
+                      </button>
+                    ))
+                  ) : (
+                    <div className="px-3 py-2 text-sm text-slate-500">No merchants found</div>
+                  )}
+                </div>
+              )}
+              
+              {/* Click outside to close */}
+              {showMerchantResults && (
+                <div 
+                  className="fixed inset-0 z-5" 
+                  onClick={() => setShowMerchantResults(false)}
+                />
+              )}
+            </div>
+            
+            {merchantId && (
+              <p className="text-xs text-slate-500">
+                Category is locked to{" "}
+                <span className="font-medium">
+                  {CATEGORIES.find((c) => c.id === categoryUsed)?.label || categoryUsed || "�?""}
+                </span>{" "}
+                for this merchant.
+              </p>
+            )}
+          </div>
+
+          {/* Category (auto-locked if merchant selected) */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Category</label>
+            <select
+                className="w-full rounded-xl border border-slate-300 h-11 px-3 text-base disabled:bg-slate-100 disabled:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+              value={categoryIdSafe(category, merchantId, categoryUsed)}
+              onChange={(e) => setCategory(e.target.value)}
+              disabled={!!merchantId}
+            >
+              {CATEGORIES.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Amount */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Amount</label>
+            <input
+                className="w-full rounded-xl border border-slate-300 h-11 px-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+              type="number"
+              min={0}
+              step={0.01}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+          </div>
+
+          {/* BoA CCP chosen category (only if owned) */}
+          {ownedIds.includes("boa_ccp") && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium">BoA Customized Cash �?" choose your 3% category</label>
+              <select
+                  className="w-full rounded-xl border border-slate-300 h-11 px-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                value={boaCcpChoice}
+                onChange={(e) => setBoaCcpChoice(e.target.value)}
+              >
+                {BOA_CCP_CHOICES.map((opt) => (
+                  <option key={opt.id} value={opt.id}>{opt.label}</option>
+                ))}
+              </select>
+              <p className="text-xs text-slate-500">
+                Only one 3% category can be active at a time.
+              </p>
+            </div>
+          )}
+
+{/* Citi Custom Cash chosen category (only if owned) */}
+{ownedIds.includes("citi_custom_cash") && (
+  <div className="space-y-2">
+    <label className="text-sm font-medium">Citi Custom Cash �?" choose your 5% category</label>
+    <select
+      className="w-full rounded-xl border border-slate-300 p-2"
+      value={citiCustomChoice}
+      onChange={(e) => setCitiCustomChoice(e.target.value)}
+    >
+      {CITI_CUSTOM_CASH_CHOICES.map((opt) => (
+        <option key={opt.id} value={opt.id}>{opt.label}</option>
+      ))}
+    </select>
+    <p className="text-xs text-slate-500">
+      5% back up to $500 in purchases per billing cycle in your chosen category.
+    </p>
+  </div>
+)}
+
+          {/* Discover rotating controls (only if owned) */}
+          {ownedIds.includes("discover_it") && (
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Discover it �?" 5% rotating (this quarter)</label>
+              <div className="flex flex-wrap items-center gap-3">
+                <label className="inline-flex items-center gap-2 text-sm sm:text-base">
+                  <input
+                    type="checkbox"
+                    className="h-5 w-5"
+                    checked={discoverActivated}
+                    onChange={e => setDiscoverActivated(e.target.checked)}
+                  />
+                  Activated
+                </label>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm">Cap remaining</span>
+                  <input
+                      className="w-28 rounded-xl border border-slate-300 h-11 px-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500"
+                    type="number"
+                    min={0}
+                    step={1}
+                    value={discoverCapRemaining}
+                    onChange={e => setDiscoverCapRemaining(e.target.value)}
+                  />
+                  <span className="text-sm">$</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500">
+                5% applies up to $1,500 per quarter after activation; the rest earns 1%.
+              </p>
+            </div>
+          )}
+
+          {/* Merchant offers list (shows when a merchant is selected) */}
+          {merchantId && (
+            <div className="space-y-2">
+              <div className="text-sm font-medium">Offers for this merchant</div>
+              <div className="rounded-xl border border-slate-200 bg-white/70 p-3">
+                {offers
+                  .filter(o => o.merchant_id === merchantId)
+                  .map(o => {
+                    const requires = !!o.enrollment_required;
+                    const enrolled = enrolledOfferIds.includes(o.id);
+                    return (
+                      <div key={o.id} className="flex items-start justify-between gap-3 py-2 border-b last:border-0">
+                        <div>
+                          <div className="text-sm font-medium">{o.title}</div>
+                          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
+                            {requires && (
+                              <span className={`inline-flex items-center rounded-full px-2 py-0.5 ring-1 ${enrolled ? "bg-green-50 text-green-700 ring-green-200" : "bg-amber-50 text-amber-700 ring-amber-200"}`}>
+                                {enrolled ? "Enrolled" : "Enrollment required"}
+                              </span>
+                            )}
+                            {o.min_spend_cents ? <span className="text-slate-500">Min spend ${(o.min_spend_cents/100).toFixed(0)}</span> : null}
+                            {o.end_at ? <span className="text-slate-500">Ends {o.end_at.slice(0,10)}</span> : null}
+                          </div>
+                        </div>
+                        {requires && (
+                          <label className="inline-flex items-center gap-2 text-xs">
+                            <input
+                              type="checkbox"
+                              checked={enrolled}
+                              onChange={e => toggleEnrollment(o.id, e.target.checked)}
+                            />
+                            I've enrolled
+                          </label>
+                        )}
+                      </div>
+                    );
+                  })}
+                {offers.filter(o => o.merchant_id === merchantId).length === 0 && (
+                  <div className="text-sm text-slate-500">No coded offers for this merchant.</div>
+                )}
+              </div>
+              <p className="text-xs text-slate-500">
+                Some issuer offers are targeted and require activation in your card app. Mark "I've enrolled" for ones you've activated so the math includes them.
+              </p>
+            </div>
+          )}
+        </section>
+
 {/* Recommendation */}
         {currentView === "recommendation" && (
           <section className="bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-lg ring-1 ring-blue-100 p-4 sm:p-5 md:p-6">
@@ -1825,18 +2044,8 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
           </section>
         )}
 
-        {/* Wallet + Inputs */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Wallet */}
-          <WalletSection 
-  ownedIds={ownedIds}
-  setOwnedIds={setOwnedIds}
-  cardsCatalog={cardsCatalog}
-/>
-
-          {/* Inputs */}
-          <section className="bg-white/90 backdrop-blur rounded-2xl shadow-lg ring-1 ring-black/5 p-4 sm:p-5 md:p-6 space-y-4">
-            <h2 className="text-lg sm:text-xl font-semibold mb-2">Purchase</h2>
+        {/* Wallet + Inputs (moved): Inputs moved above, Wallet moved below offers */}
+        {/* Removed grid wrapper here */}
 
             {/* Smart Merchant Search */}
             <div className="space-y-2">
@@ -2186,6 +2395,12 @@ function WalletSection({ ownedIds, setOwnedIds, cardsCatalog }) {
   </div>
 </section>
 
+        {/* Wallet */}
+        <WalletSection 
+          ownedIds={ownedIds}
+          setOwnedIds={setOwnedIds}
+          cardsCatalog={cardsCatalog}
+        />
 
         {/* All options - COMMENTED OUT FOR NOW */}
 {/* 
